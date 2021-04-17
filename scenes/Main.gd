@@ -6,23 +6,22 @@ var score
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	new_game()
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	#new_game()
 
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	pass # Replace with function body.
+	$HUD.show_game_over()
+	
+	# remove all mobs on screen
+	get_tree().call_group("mobs", "queue_free")
 
 func new_game():
 	score = 0
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	pass
+	$HUD.update_score(score)
+	$HUD.show_message("Get Ready")
 
 func _on_MobTimer_timeout():
 	# Choose a random location on Path2D.
@@ -40,13 +39,14 @@ func _on_MobTimer_timeout():
 	# Set the velocity (speed & direction).
 	mob.linear_velocity = Vector2(rand_range(mob.min_speed, mob.max_speed), 0)
 	mob.linear_velocity = mob.linear_velocity.rotated(direction)
-	pass # Replace with function body.
 
 func _on_ScoreTimer_timeout():
 	score += 1
-	pass # Replace with function body.
+	$HUD.update_score(score)
 
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
-	pass # Replace with function body.
+
+func _on_HUD_start_game():
+	new_game()
