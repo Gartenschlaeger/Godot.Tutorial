@@ -1,11 +1,15 @@
 extends Area2D
 
+signal hit
+
 export var speed = 400
 var screen_size
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
 	screen_size = get_viewport().size
+	
+	hide()
 	
 	pass # Replace with function body.
 
@@ -41,3 +45,15 @@ func _process(delta):
 		$AnimatedSprite.flip_v = velocity.y > 0
 
 	pass
+
+func _on_Player_body_entered(body):
+	hide()
+	emit_signal("hit")
+	$CollisionShape2D.set_deferred("disabled", true)
+	
+	pass # Replace with function body.
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
