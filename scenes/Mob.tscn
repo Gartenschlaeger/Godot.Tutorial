@@ -10,11 +10,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "swim",
-"speed": 3.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "fly",
@@ -24,11 +19,16 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 3.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "swim",
+"speed": 3.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 35.7414
-height = 26.7137
+radius = 23.9726
+height = 14.9664
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_mask = 0
@@ -39,9 +39,10 @@ __meta__ = {
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 0.75, 0.75 )
+scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
